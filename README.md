@@ -3,7 +3,6 @@
 my garbage code
 
 
-
 been fascinated with computers since my first viewing of tom scott's the basics series which is basically an intro to cs
 and im now finally coming onto them >:D
 
@@ -11,7 +10,8 @@ and im now finally coming onto them >:D
 
 my journey:
 
-10/8/2025: started learning python, pretty fun actually...
+10/8/2025: started learning python, pretty fun...
+10/9/2025: wasn't too free today
 
 
-hi im aki, you can me on discord if you want - yun.seoo
+dm me on discord - yun.seoo
