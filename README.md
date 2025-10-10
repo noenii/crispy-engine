@@ -8,6 +8,6 @@ my journey:
 
 10/9/2025: wasn't too free today, still added some
 
-10/10/2025: need to go back and relearn everything, i went too fast :(
+10/10/2025: need to go back, i went too fast :(
 
 dm me on discord - yun.seoo
