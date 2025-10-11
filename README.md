@@ -4,10 +4,12 @@ ive been fascinated with computers since i first watched tom scott's "the basics
 
 my journey:
 
-10/8/2025: started learning python, pretty fun...
+10/8/2025: i've known python for awhile, i'm like an advanced beginner...
 
-10/9/2025: wasn't too free today, still added some
+10/9/2025: didn't have much time today, but did some projects
 
-10/10/2025: need to go back, i went too fast :(
+10/10/2025: i don't really understand, i'm going to relearn everything
+
+10/11/2025: started learning python structure, functions, data types, variables, I/O, operators, keywords, logic, and loops
 
 dm me on discord - yun.seoo
