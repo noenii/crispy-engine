@@ -13,3 +13,4 @@ if num1 == num2:
 else:
     print(False)
 #There's also ternary operators which is compact if/else.
+#Python is read left to right, top to bottom, including order of operations for math (1 + 2 * 5) = 15

@@ -9,8 +9,3 @@ import, in, is, lambda, nonlocal, not, or, pass, raise, return, try, while, with
 #The sequenced types: Lists, Strings, Tuples.
 #The boolean: True or False.
 #There's also sets and dictionaries.
-this = False
-if(this is True):
-    print("This is True.")
-else:
-    print("This is False.")
