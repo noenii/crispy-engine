@@ -10,6 +10,7 @@ my journey:
 
 10/10/2025: i don't really understand, i'm going to relearn everything
 
-10/11/2025: started learning python structure, functions, data types, variables, I/O, operators, keywords, logic, and loops
+10/11/2025: learning python structure, functions, data types, variables, I/O, operators, keywords, logic, and loops
 
+10/12/2025: learning user functions, control flow, global & local, recursion, args and kwargs, self, some stuff about classes, lambda, useful functions, nesting
 dm me on discord - yun.seoo
