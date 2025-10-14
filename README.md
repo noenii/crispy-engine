@@ -14,8 +14,8 @@ my journey:
 
 10/12/25: learning user functions, control flow, global & local, recursion, args and kwargs, self, some stuff about classes, lambda, useful functions and nesting
 
-10/13/25: didn't have any free time today
+10/13/25: didn't have much time today :(
 
-10/14/25: learning strings
+10/14/25: learning strings and lists
 
 dm me on discord - yun.seoo
