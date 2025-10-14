@@ -11,4 +11,4 @@
 
 #filter() is a function to filter iterables with another function
 
-#nesting functions r cool
+#nested functions r cool
