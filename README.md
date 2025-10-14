@@ -12,5 +12,6 @@ my journey:
 
 10/11/2025: learning python structure, functions, data types, variables, I/O, operators, keywords, logic, and loops
 
-10/12/2025: learning user functions, control flow, global & local, recursion, args and kwargs, self, some stuff about classes, lambda, useful functions, nesting
+10/12/2025: learning user functions, control flow, global & local, recursion, args and kwargs, self, some stuff about classes, lambda, useful functions and nesting
+
 dm me on discord - yun.seoo
