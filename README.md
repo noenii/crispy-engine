@@ -18,4 +18,6 @@ my journey:
 
 10/14/25: learning strings and lists
 
+10/15/25: busy today
+
 dm me on discord - yun.seoo
