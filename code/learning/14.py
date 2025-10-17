@@ -8,16 +8,21 @@ try:
 except:
     print("didnt work")
 
-#dictionarys
+#dictionaries
 
 x = {"a": "b", "fizz": "buzz", 6:7}
 print(x["a"])
 
 x.update({6: "syfm"})
 x["interstellar"] = "peak"
-
+'''
 print(x)
 
 print(x.pop(2))
 
 del(0)
+'''
+for key, value in x.items():
+    print(key, value)
+
+#you can nest dictionarys
