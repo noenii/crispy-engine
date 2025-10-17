@@ -20,4 +20,8 @@ my journey:
 
 10/15/25: busy today
 
+10/16/25: also busy
+
+10/17/25: learnt about tuples, dictionaries, arrays, list magic and sets
+
 dm me on discord - yun.seoo
