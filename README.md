@@ -24,6 +24,10 @@ my journey:
 
 10/17/25: learnt about tuples, dictionaries, sets, arrays, list magic, collections and heaps
 
+10/18/25: busy
+
+10/19/25: learning oop
+
 10/20/25: busy
 
 dm me on discord - yun.seoo
