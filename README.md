@@ -26,8 +26,12 @@ my journey:
 
 10/18/25: busy
 
-10/19/25: learning oop
+10/19/25: tryna learn oop
 
 10/20/25: busy
+
+10/21/25: learning oop
+
+10/22/25: _
 
 dm me on discord - yun.seoo
