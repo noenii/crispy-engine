@@ -32,6 +32,8 @@ my journey:
 
 10/21/25: learning oop
 
-10/22/25: _
+10/22/25: learning classes, objects, inheritance
+
+10/23/25: learning polymorphism, encapsulation
 
 dm me on discord - yun.seoo

@@ -37,6 +37,7 @@ friend1 = friend("vib", 17)
 
 print(friend1.relation())
 '''
+
 #theres many types of inheritance, single, multi, multi-level, hierarchical and hybrid
 #single is when a child class inherits from a parent class
 #multi is when a child class inherits from multiple parent classes 
