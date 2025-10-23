@@ -34,6 +34,6 @@ my journey:
 
 10/22/25: learning classes, objects, inheritance
 
-10/23/25: learning polymorphism, encapsulation
+10/23/25: learning polymorphism, encapsulation, abstraction, try/except and file handling
 
 dm me on discord - yun.seoo
