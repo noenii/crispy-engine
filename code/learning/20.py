@@ -26,3 +26,7 @@ with open('txt.txt', 'r') as c:
     print(c.read())
 
 #also should use try except blocks to make sure the file closes if any errors occur (finally)
+
+import os
+
+#ill write some stuff tmrw
