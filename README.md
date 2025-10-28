@@ -14,26 +14,18 @@ my journey:
 
 10/12/25: learning user functions, control flow, global & local, recursion, args and kwargs, self, some stuff about classes, lambda, useful functions and nesting
 
-10/13/25: didn't have much time today :(
-
 10/14/25: learning strings and lists
-
-10/15/25: busy today
-
-10/16/25: also busy
 
 10/17/25: learnt about tuples, dictionaries, sets, arrays, list magic, collections and heaps
 
-10/18/25: busy
-
 10/19/25: tryna learn oop
-
-10/20/25: busy
 
 10/21/25: learning oop
 
 10/22/25: learning classes, objects, inheritance
 
 10/23/25: learning polymorphism, encapsulation, abstraction, try/except, file handling and os
+
+10/27/25: doing some leetcode
 
 dm me on discord - yun.seoo
