@@ -1,0 +1,1 @@
+import bpy  #this must be run in blender! if you dont have blender, bpy must be manually installed
