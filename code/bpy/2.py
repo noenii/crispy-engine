@@ -1,3 +1,4 @@
+#cube spawner
 import bpy
 
 class AddCube(bpy.types.Operator):
