@@ -28,8 +28,6 @@ my journey:
 
 10/27/25: doing some leetcode
 
-- was busy -
-
 11/3/25: experimenting with bpy
 
 11/4/25: did a lot of leetcode
