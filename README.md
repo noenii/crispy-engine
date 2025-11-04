@@ -1,6 +1,6 @@
 # crispy-engine
 
-ive been fascinated with computers since i first watched tom scott's "the basics" when i was 9, and now ive decided to commit to cs
+i like computers =D
 
 my journey:
 
@@ -8,7 +8,7 @@ my journey:
 
 10/9/25: didn't have much time today, but did some projects
 
-10/10/25: i don't really understand, i'm going to relearn everything
+10/10/25: i'm gonna revise
 
 10/11/25: learning python structure, functions, data types, variables, I/O, operators, keywords, logic, and loops
 
