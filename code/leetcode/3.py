@@ -1,10 +1,9 @@
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         max_len = 0
-        r = 0
         stri = []
 
-        for x, y in enumerate(s):
+        for y in s:
             stri.append(y)
             while len(stri) != len(set(stri)):
                 stri.pop(0)
