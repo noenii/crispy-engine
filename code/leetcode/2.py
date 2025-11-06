@@ -1,6 +1,6 @@
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
-        dummy = ListNode(0)
+        dummy = ListNode(0) # type: ignore
         current = dummy
         carry = 0
 
@@ -10,7 +10,7 @@ class Solution(object):
 
             total = val1 + val2 + carry
             carry = total // 10
-            current.next = ListNode(total % 10)
+            current.next = ListNode(total % 10) # type: ignore
 
             current = current.next
             l1 = l1.next if l1 else None

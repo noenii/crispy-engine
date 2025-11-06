@@ -1,14 +1,14 @@
 # crispy-engine
 
-i like computers =D
+## i like computers =D
 
-my journey:
+### progress:
 
-10/8/25: i've known python for awhile, i'm like an advanced beginner...
+10/8/25: i've known python for awhile, i'm an advanced beginner...
 
-10/9/25: didn't have much time today, but did some projects
+10/9/25: did some projects
 
-10/10/25: i'm gonna revise
+10/10/25: i'm gonna revise a bit
 
 10/11/25: learning python structure, functions, data types, variables, I/O, operators, keywords, logic, and loops
 
@@ -31,5 +31,7 @@ my journey:
 11/3/25: experimenting with bpy
 
 11/4/25: did a lot of leetcode
+
+11/6/25: coded a blender shader
 
 dm me on discord - yun.seoo
