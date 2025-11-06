@@ -1,11 +1,5 @@
-import random as r
-a='b'
-c=[0]*len(b)
-for d in a:
-    b[d]+=1
-e = []
-for d, f in enumerate(b):
-    if i>0:
-        f.extend([d]*f)
-for g in e:
-    print(g," ",end='')
+a=''
+b=[0]*a
+for v in [r.randrange(0,a) for _ in range(a)]:b[v]+=1
+for i,c in enumerate(b):
+    if c:print(*(i for _ in range(c)),'',end='')
