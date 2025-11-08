@@ -34,4 +34,6 @@
 
 11/6/25: coded a blender shader
 
+11/7/25: released animeShader v.1.1.0
+
 dm me on discord - yun.seoo

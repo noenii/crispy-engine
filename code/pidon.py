@@ -5,8 +5,8 @@ pygame.init()
 screen = pygame.display.set_mode((550, 550))
 
 running = True
-
-doggie = pygame.image.load('images (4).jpg').convert()
+'''
+doggie = pygame.image.load('').convert()
 scaled_doggie = pygame.transform.scale(doggie, (doggie.get_width() * 2, doggie.get_height() * 2))
 
 while running:
@@ -20,3 +20,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+'''
