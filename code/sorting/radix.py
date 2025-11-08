@@ -17,5 +17,4 @@ def radix(aLi):
         dummy = counter(dummy, digit)
     return [int(x) for x in dummy]
 
-print("unsorted:", rawLi)
-print("sorted:", radix(rawLi))
+print(radix(rawLi))
