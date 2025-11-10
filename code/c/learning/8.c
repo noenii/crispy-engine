@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 int main() {
+    //conditions
     bool amIJobless = true;
 
     if(amIJobless == true) {

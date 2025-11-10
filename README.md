@@ -40,6 +40,6 @@
 
 11/9/25: started learning C
 
-11/10/25: learning C syntax, statements, output, comments, variables, data types, conversion, constants and operators
+11/10/25: learning C syntax, statements, output, comments, variables, data types, conversion, constants, operators, booleans, if/else, switch, while, for, control
 
 dm me on discord - yun.seoo
