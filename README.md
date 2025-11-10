@@ -36,4 +36,10 @@
 
 11/7/25: released animeShader v.1.1.0
 
+11/8/25: wrote my fav sorting algo, radix sort =D
+
+11/9/25: started learning C
+
+11/10/25: learning C syntax, statements, output, comments, variables, data types, conversion, constants and operators
+
 dm me on discord - yun.seoo
