@@ -1,8 +1,10 @@
 # crispy-engine
 
-## i like computers =D
 
-### progress:
+i like computers =D
+
+
+progress:
 
 10/8/25: i've known python for awhile, i'm an advanced beginner...
 
@@ -40,6 +42,6 @@
 
 11/9/25: started learning C
 
-11/10/25: learning C syntax, statements, output, comments, variables, data types, conversion, constants, operators, booleans, if/else, switch, while, for, control
+11/10/25: learning C syntax, statements, output, comments, variables, data types, conversion, constants, operators, booleans, if/else, switch, loops and control
 
 dm me on discord - yun.seoo
