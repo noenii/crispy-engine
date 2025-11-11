@@ -42,6 +42,8 @@ progress:
 
 11/9/25: started learning C
 
-11/10/25: learning C syntax, statements, output, comments, variables, data types, conversion, constants, operators, booleans, if/else, switch, loops and control
+11/10/25: learned C syntax, statements, io, comments, variables, data types, conversion, constants, operators, booleans, if/else, switch, loops and flow 
+
+11/11/25: learned C arrays, strings, user input, memory and pointers
 
 dm me on discord - yun.seoo
