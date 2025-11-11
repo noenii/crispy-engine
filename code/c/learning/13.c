@@ -25,6 +25,11 @@ void dummy(int x);
 //only use it for small functions, bigger ones make it slower
 //dont use it for recursive and rarely called functions
 
+//functions can call themselves too, recursion ;-;
+//skip to line 54
+
+int factorial(int num);
+
 int main() {
     //functions!
     //int main() {} is a function btw
@@ -36,9 +41,19 @@ int main() {
     printf("%f\n", floor(sqrtTwo)); //floor()   for floor rounding
     printf("%f\n", pow(sqrtTwo, sqrtTwo));  //pow(num, power)   for exponents
     
+    printf("%d\n", factorial(4));
+
     return 0;
 }
 
 void dummy(int x) {
     //do nothing =P
+}
+
+int factorial(int num) {
+    if(num > 1) {
+        return num * factorial(num - 1);    //calls itself
+    }   else {
+        return 1;
+    }
 }
