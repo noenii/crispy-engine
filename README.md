@@ -50,4 +50,9 @@ progress:
 
 11/14/25: learned file management/structures
 
+11/15/25: learning memory management
+11/16/25: learnt about heaps and stacks
+
+11/17/25: learned memory allocation, reallocation, deallocation, dynamic structs and arrays. also turned 16 today =D
+
 dm me on discord - yun.seoo
