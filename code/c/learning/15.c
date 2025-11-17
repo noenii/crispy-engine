@@ -82,5 +82,26 @@ int main() {
     //padding can be reduced by ordering the variables from largest at the top to smallest at the bottom
     //unions dont use padding btw
 
+
+    //enum
+    //a group of constants
+
+    enum days {
+        SUNDAY = 1,
+        MONDAY = 2,
+        TUESDAY = 3,
+        WEDNESDAY = 4,
+        THURSDAY = 5,
+        FRIDAY = 6,
+        SATURDAY = 7
+    };
+
+    int today = MONDAY;
+    printf("%d\n", today);
+
+    //you can change values
+    //often use with switch statements
+    //typedef to improve readability
+
     return 0;
 }
