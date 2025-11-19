@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+//this took a lot of tears and begging (￣、￣)
 
 int main() {
     int counter = 0;
