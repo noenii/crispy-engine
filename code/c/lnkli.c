@@ -7,6 +7,55 @@ typedef struct node {
     struct node* next;
 } node;
 
+node* create(int num);
+
+void cycle(node* head);
+
+void clear(node** head);
+
+node* insert(node* head, int num, int pos);
+
+int main() {
+    printf("Linked Lists!\n");
+    bool running = true;
+    node* anode = NULL;
+    while(running) {
+        int option;
+        printf("Choose option: 1. View | 2. Insert | 3. Remove | 4. Exit\n");
+        scanf("%d", &option);
+        getchar();
+        printf("\n");
+        switch(option) {
+            case 1:
+                if(!anode) {printf("No elements yet.\n"); break;}
+                cycle(anode);
+                break;
+            case 2: {
+                int value, pos;
+                printf("Value: ");
+                scanf("%d", &value);
+                printf("Insert position: ");
+                scanf("%d", &pos);
+                anode = insert(anode, value, pos);
+                break;
+            }
+            case 3:
+                if(!anode) {printf("List is empty.\n"); break;}
+                printf("Clearing list.\n");
+                clear(&anode);
+                break;
+            case 4:
+                if(anode) {clear(&anode);}
+                printf("Exiting.\n");
+                running = false;
+                break;
+            default:
+                printf("Invalid.\n");
+        }
+    }
+    return 0;
+}
+
 node* create(int num) {
     node* new = malloc(sizeof(node));
     if(!new) {
@@ -51,45 +100,4 @@ node* insert(node* head, int num, int pos) {
     cur->next = temp->next;
     temp->next = cur;
     return head;
-}
-
-int main() {
-    printf("Linked Lists!\n");
-    bool running = true;
-    node* anode = NULL;
-    while(running) {
-        int option;
-        printf("Choose option: 1. View | 2. Insert | 3. Remove | 4. Exit    ");
-        scanf("%d", &option);
-        getchar();
-        printf("\n");
-        switch(option) {
-            case 1:
-                if(!anode) {printf("No elements yet.\n"); break;}
-                cycle(anode);
-                break;
-            case 2: {
-                int value, pos;
-                printf("Value: ");
-                scanf("%d", &value);
-                printf("Insert position: ");
-                scanf("%d", &pos);
-                anode = insert(anode, value, pos);
-                break;
-            }
-            case 3:
-                if(!anode) {printf("List is empty.\n"); break;}
-                printf("Clearing list.\n");
-                clear(&anode);
-                break;
-            case 4:
-                if(anode) {clear(&anode);}
-                printf("Exiting.\n");
-                running = false;
-                break;
-            default:
-                printf("Invalid.\n");
-        }
-    }
-    return 0;
 }
