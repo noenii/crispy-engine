@@ -58,6 +58,10 @@ progress:
 
 11/18/25: learned errors types, debugging, NULL, error handling and input validation
 
-11/19/25: creating dynamic arrays, pointer black magic, random number guesser, and creating a binary search algo for em =D
+11/19/25: creating dynamic arrays, pointer black magic, random number guesser/gen, and a binary search algorithm for it =D
+
+11/20/25: created a file handler and calculator
+
+11/21/25: creating linked lists
 
 dm me on discord - yun.seoo
