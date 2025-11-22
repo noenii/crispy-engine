@@ -62,6 +62,8 @@ progress:
 
 11/20/25: created a file handler and calculator
 
-11/21/25: creating linked lists
+11/21/25: created linked lists and arrays
+
+11/22/25: created fibonaci sequence, and learning sorting algorithms: bubble sort, selection sort and binary search
 
 dm me on discord - yun.seoo
