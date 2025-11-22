@@ -3,6 +3,8 @@
 #include <time.h>
 #include <windows.h>
 
+//binary sort
+
 int main() {
     int random = 1000;
     SYSTEMTIME st;
