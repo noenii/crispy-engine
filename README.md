@@ -64,6 +64,6 @@ progress:
 
 11/21/25: created linked lists and arrays
 
-11/22/25: created fibonaci sequence, and learning sorting algorithms: bubble sort, selection sort and binary search
+11/22/25: created fibonaci sequence, and learning sorting algorithms: bubble, selection, insertion and binary search sort
 
 dm me on discord - yun.seoo
