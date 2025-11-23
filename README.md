@@ -66,6 +66,6 @@ progress:
 
 11/22/25: created fibonaci sequence, and learning sorting algorithms: bubble, selection, insertion, binary search...
 
-11/23/25: ... and insertion sort
+11/23/25: ... insertion sort and counting sort =P
 
 dm me on discord - yun.seoo
