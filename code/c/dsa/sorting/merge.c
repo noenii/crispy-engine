@@ -17,7 +17,6 @@ int main() {
     fillRandom(arr, SIZE);
     mergeSort(arr, SIZE);
     printArray(arr, SIZE);
-
     return 0;
 }
 

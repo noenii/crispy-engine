@@ -12,7 +12,6 @@ void swap(int arr[], int i, int j);
 
 int main() {
     int arr[SIZE];
-    int option;
     srand((unsigned)time(NULL));
     fillRandom(arr, SIZE);
 

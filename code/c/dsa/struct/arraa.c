@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+//arrays yo
+
 int main() {
     int option;
     bool running = true;

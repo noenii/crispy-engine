@@ -1,31 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdbool.h>
 
-//bubblesort
+//linear search
 
 #define SIZE 100
+#define VALUE 17
 
 void fillRandom(int arr[], int size);
 void printArray(int arr[], int size);
-void swap(int arr[], int i, int j);
+int finder(int arr[], int size, int val);
 
 int main() {
     int arr[SIZE];
     srand((unsigned)time(NULL));
     fillRandom(arr, SIZE);
-    bool swapped = true;
-    while (swapped) {
-        swapped = false;
-        for (int i = 1; i < SIZE; i++) {
-            if (arr[i] < arr[i - 1]) {
-                swap(arr, i, i - 1);
-                swapped = true;
-            }
-        }
-    }
     printArray(arr, SIZE);
+    int x = finder(arr, SIZE, VALUE);
+    if(x == -1) {
+        printf("(%d) not found.\n");
+    }   else {
+        printf("(%d) found at index %d.\n", VALUE, x);
+    }
     return 0;
 }
 
@@ -42,8 +38,11 @@ void printArray(int arr[], int size) {
     printf("\n");
 }
 
-void swap(int arr[], int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+int finder(int arr[], int size, int val) {
+    for(int i = 0; i < size; i++) {
+        if(arr[i] == val) {
+            return i;
+        }
+    }
+    return -1;
 }

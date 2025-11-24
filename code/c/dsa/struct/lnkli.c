@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+//linked lists yo
+
 typedef struct node {
     int num;
     struct node* next;
