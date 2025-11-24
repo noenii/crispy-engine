@@ -18,7 +18,6 @@ int main() {
     fillRandom(arr, SIZE);
     quickSort(arr, 0, SIZE - 1);
     printArray(arr, SIZE);
-
     return 0;
 }
 

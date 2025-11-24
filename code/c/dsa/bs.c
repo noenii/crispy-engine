@@ -3,7 +3,8 @@
 #include <time.h>
 #include <windows.h>
 
-//binary sort
+//binary search
+//update: bro mb ive been calling this binary sort wtf (￣、￣)
 
 int main() {
     int random = 1000;
