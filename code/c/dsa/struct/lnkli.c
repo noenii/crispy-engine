@@ -4,6 +4,12 @@
 
 //linked lists yo
 
+//there are types of linked lists ig
+//if each node links to the next one (like this one), its a singly-linked list
+//but theres also doubly-linked lists, each node links to the next and the previous. but it takes more memory
+
+//the last node can also point back to the first node to loop around ig, then its a circular linked list
+
 typedef struct node {
     int num;
     struct node* next;

@@ -68,6 +68,6 @@ progress:
 
 11/23/25: ... insertion sort, counting sort...
 
-11/24/25: ... radix sort, merge sort and linear search =P
+11/24/25: ... radix sort, merge sort, linear search and also created stacks =P
 
 dm me on discord - yun.seoo
