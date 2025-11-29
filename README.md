@@ -68,8 +68,10 @@ progress:
 
 11/23/25: insertion sort, counting sort...
 
-11/24/25: radix sort, merge sort, linear search. also created stacks... =P
+11/24/25: radix sort, merge sort, linear search. also created stacks...
 
-11/25/25: and queues
+11/25/25: and queues =P
+
+11/29/25: finally finished on hash tables
 
 dm me on discord - yun.seoo
