@@ -72,6 +72,8 @@ progress:
 
 11/25/25: and queues =P
 
-11/29/25: finally finished on hash tables
+11/29/25: learned about hash sets, maps and tables
+
+12/1/25: learning about trees
 
 dm me on discord - yun.seoo
