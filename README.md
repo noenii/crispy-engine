@@ -76,6 +76,6 @@ progress:
 
 12/1/25: learning about trees
 
-12/3/25: created a binary tree
+12/3/25: created a binary tree, and a tictactoe game ^v^
 
 dm me on discord - yun.seoo
