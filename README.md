@@ -76,4 +76,6 @@ progress:
 
 12/1/25: learning about trees
 
+12/3/25: created a binary tree
+
 dm me on discord - yun.seoo
