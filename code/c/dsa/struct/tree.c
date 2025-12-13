@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+//trees yo
+
 typedef struct node {
     int value;
     struct node *right;
