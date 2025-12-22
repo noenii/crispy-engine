@@ -80,4 +80,6 @@ progress:
 
 12/13/25: created a full working binary tree
 
+12/22/25: learnt more about trees, traversal algos, management and created a BST
+
 dm me on discord - yun.seoo

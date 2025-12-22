@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <limits.h>
 
 //trees yo
 
@@ -38,12 +39,24 @@ node* findMin(node* root);
 node* findMax(node* root);
 void cleanup(tree* t, node** temp, int count);
 
+void fillInorder(node *n, int *arr, int *index);
+int compare(const void *a, const void *b);
+void assignInorder(node *n, int *arr, int *index);
+void BSTNator(tree* t);
+bool isBSTUtil(node* n, int min, int max);
+bool isBST(node* root);
+
+bool BinarySearch(node* n, int val);
+node* findMinBST(node* root);
+node* findMaxBST(node* root);
+
 int main() {
     bool running = true;
     tree *t = NULL;
     node *n = NULL;
     node **temp = NULL;
     int count = 0;
+    bool bst = false;
     while(running) {
         if(!t) {
             printf("Select: Create tree (1) | Exit (2)\n");
@@ -83,7 +96,7 @@ int main() {
                 }
             }
         }   else {
-            printf("Select: Insert (1) | View (2) | Navigate (3) | Info (4) | Search (5) | Detach (6) | FindMin/Max (7) | Clear (8) | Exit (9)\n");
+            printf("Select: Insert (1) | View (2) | Navigate (3) | Info (4) | Search (5) | Detach (6) | FindMin/Max (7) | BSTNator (8) | Clear (9) | Exit (10)\n");
             int option;
             if(scanf("%d", &option) != 1) {
                 printf("Invalid input, please enter a number.\n");
@@ -146,7 +159,7 @@ int main() {
                     }   else {
                         break;
                     }
-                    if(!nodeToInsert) break;
+                    if(!nodeToInsert) {break;}
                     printf("Insert Left (1) | Right (2): ");
                     int side;
                     if(scanf("%d", &side) != 1) {
@@ -155,13 +168,20 @@ int main() {
                         continue;
                     }
                     if(side == 1) {
-                        if(!n->left) {insertLeft(n, nodeToInsert);
+                        if(!n->left) {
+                            insertLeft(n, nodeToInsert);
+                            if(!isBST(t->root)) {
+                                if(bst == true) {printf("Tree is no longer a BST.\n"); bst = false;}
+                            }
                         }   else {
                             printf("Parent's left exists.\n\n");
                         }
                     }   else if(side == 2) {
                         if(!n->right) {
                             insertRight(n, nodeToInsert);
+                            if(!isBST(t->root)) {
+                                if(bst == true) {printf("Tree is no longer a BST.\n"); bst = false;}
+                            }
                         }   else {
                             printf("Parent's right exists.\n\n");
                         }
@@ -207,7 +227,7 @@ int main() {
                     break;
                 }
                 case 4: {
-                    printf("View: isLeaf (1) | Height (2) | Size (3) | countLeaves (4) | Depth (5) | Menu (6)\n");
+                    printf("View: isLeaf (1) | Height (2) | Size (3) | countLeaves (4) | Depth (5) | isBST (6) | Menu (7)\n");
                     int anum;
                     if(scanf("%d", &anum) != 1) {
                         printf("Invalid input, please enter a number.\n");
@@ -240,6 +260,12 @@ int main() {
                             printf("Tree is %d nodes deep.\n\n", depth(n));
                             break;
                         }
+                        case 6: {
+                            bool tmp = isBST(t->root);
+                            if(tmp) {printf("Tree is a BST.\n");}
+                            else {printf("Tree is not a BST>\n");}
+                            break;
+                        }
                     }
                     break;
                 }
@@ -251,10 +277,18 @@ int main() {
                         while(getchar() != '\n');
                         continue;
                     }
-                    if(contains(n, anum)) {
-                        printf("Value was found.\n\n");
+                    if(bst == true) {
+                        if(BinarySearch(n, anum)) {
+                            printf("Value was found.\n\n");
+                        }   else {
+                            printf("Value wasn't found.\n\n");
+                        }
                     }   else {
-                        printf("Value wasn't found.\n\n");
+                        if(contains(n, anum)) {
+                            printf("Value was found.\n\n");
+                        }   else {
+                            printf("Value wasn't found.\n\n");
+                        }
                     }
                     break;
                 }
@@ -297,13 +331,19 @@ int main() {
                     }
                     switch(anum) {
                         case 1: {
-                            node* minNode = findMin(n);
+                            node* minNode = NULL;
+                            if(bst) {minNode = findMinBST(n);}
+                            else {minNode = findMin(n);}
                             if(minNode) {printf("%d\n", minNode->value);}
+                            else {printf("Empty Tree.\n");}
                             break;
                         }
                         case 2: {
-                            node* maxNode = findMax(n);
+                            node* maxNode = NULL;
+                            if(bst) {maxNode = findMaxBST(n);}
+                            else {maxNode = findMax(n);}
                             if(maxNode) {printf("%d\n", maxNode->value);}
+                            else {printf("Empty Tree.\n");}
                             break;
                         }
                     }
@@ -311,13 +351,18 @@ int main() {
                     break;
                 }
                 case 8: {
+                    BSTNator(t);
+                    bst = true;
+                    break;
+                }
+                case 9: {
                     cleanup(t, temp, count);
                     t = NULL;
                     temp = NULL;
                     count = 0;
                     break;
                 }
-                case 9: {
+                case 10: {
                     printf("Exiting...\n");
                     cleanup(t, temp, count);
                     t = NULL;
@@ -349,7 +394,7 @@ node* createNode(int val) {
 
 tree* createTree(int n) {
     tree* t = malloc(sizeof(tree));
-    if(!t) { printf("Error Allocating.\n"); exit(EXIT_FAILURE); }
+    if(!t) {printf("Error Allocating.\n"); exit(EXIT_FAILURE);}
     t->root = createNode(n);
     return t;
 }
@@ -359,7 +404,6 @@ void insertLeft(node* parent, node* child) {
     if(child->parent) {printf("Error: Child already has a parent.\n"); return;}
     parent->left = child;
     child->parent = parent;
-    return;
 }
 
 void insertRight(node* parent, node* child) {
@@ -367,7 +411,6 @@ void insertRight(node* parent, node* child) {
     if(child->parent) {printf("Error: Child already has a parent.\n"); return;}
     parent->right = child;
     child->parent = parent;
-    return;
 }
 
 void traverse(node* root) {
@@ -375,18 +418,17 @@ void traverse(node* root) {
     printf("%d ", root->value);
     traverse(root->left);
     traverse(root->right);
-    return;
 }
 
 void freeNodes(node* root) {
-    if(!root) return;
+    if(!root) {return;}
     freeNodes(root->left);
     freeNodes(root->right);
     free(root);
 }
 
 void freeTree(tree* t) {
-    if (!t) return;
+    if(!t) {return;}
     freeNodes(t->root);
     free(t);
 }
@@ -400,7 +442,6 @@ void detach(node* parent, node* child) {
         parent->right = NULL;
     }
     child->parent = NULL;
-    return;
 }
 
 bool isLeaf(node* n) {
@@ -482,4 +523,81 @@ void cleanup(tree* t, node** temp, int count) {
         for(int i = 0; i < count; i++) free(temp[i]);
         free(temp);
     }
+}
+
+void fillInorder(node *n, int *arr, int *index) {
+    if(n == NULL)
+        return;
+    fillInorder(n->left, arr, index);
+    arr[*index] = n->value;
+    (*index)++;
+    fillInorder(n->right, arr, index);
+}
+
+int compare(const void *a, const void *b) {
+    int x = *(const int *)a;
+    int y = *(const int *)b;   
+    if (x < y) return -1;
+    if (x > y) return 1;
+    return 0;
+}
+
+void assignInorder(node *n, int *arr, int *index) {
+    if (n == NULL) {return;}
+    assignInorder(n->left, arr, index);
+    n->value = arr[*index];
+    (*index)++;
+    assignInorder(n->right, arr, index);
+}
+
+void BSTNator(tree* t) {
+    if(!t || !t->root) {printf("Tree is empty.\n"); return;}
+    int n = size(t->root);
+    int *arr = malloc(n * sizeof(int));
+    if (!arr) {printf("Error Allocating.\n"); exit(EXIT_FAILURE);}
+    int index = 0;
+    fillInorder(t->root, arr, &index);
+    qsort(arr, n, sizeof(int), compare);
+    index = 0;
+    assignInorder(t->root, arr, &index);
+    free(arr);
+}
+
+bool isBSTUtil(node* n, int min, int max) {
+    if(n == NULL) {return true;}  // empty tree is BST
+
+    if(n->value < min || n->value > max) {return false;}
+
+    return isBSTUtil(n->left, min, n->value - 1) &&
+           isBSTUtil(n->right, n->value + 1, max);
+}
+
+bool isBST(node* root) {
+    return isBSTUtil(root, INT_MIN, INT_MAX);
+}
+
+bool BinarySearch(node* n, int val) {
+    node* cur = n;
+    while(cur) {
+        if(cur->value == val) {return true;}
+        if(val < cur->value) {cur = cur->left;}
+        else {cur = cur->right;}
+    }
+    return false;
+}
+
+node* findMinBST(node* root) {
+    if(!root) {return NULL;}
+    node* cur = root;
+    while(cur->left)
+        cur = cur->left;
+    return cur;
+}
+
+node* findMaxBST(node* root) {
+    if(!root) {return NULL;}
+    node* cur = root;
+    while(cur->right)
+        cur = cur->right;
+    return cur;
 }
