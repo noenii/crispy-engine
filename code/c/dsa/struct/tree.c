@@ -5,21 +5,28 @@
 
 //trees yo
 
+typedef enum {
+    MODE_FREE,
+    MODE_BST,
+    MODE_AVL
+}   TreeMode;
+
 typedef struct node {
     int value;
+    int height;
     struct node* left;
     struct node* right;
     struct node* parent;
-} node;
+}   node;
 
 typedef struct {
     node* root;
-} tree;
+}   tree;
+
+bool readInt(const char *prompt, int *out);
 
 node* createNode(int val);
-
 tree* createTree(int n);
-
 void insertLeft(node* parent, node* child);
 void insertRight(node* parent, node* child);
 void traverse(node* root);
@@ -28,7 +35,6 @@ void freeTree(tree* t);
 void detach(node* parent, node* child);
 
 bool isLeaf(node* n);
-int height(node* root);
 int size(node* root);
 int countLeaves(node* root);
 int depth(node* n);
@@ -40,352 +46,202 @@ node* findMax(node* root);
 void cleanup(tree* t, node** temp, int count);
 
 void fillInorder(node *n, int *arr, int *index);
-int compare(const void *a, const void *b);
-void assignInorder(node *n, int *arr, int *index);
+node* buildBalancedBST(int *arr, int start, int end, node* parent);
 void BSTNator(tree* t);
-bool isBSTUtil(node* n, int min, int max);
+bool isBSTUtil(node* n, long long min, long long max);
 bool isBST(node* root);
 
 bool BinarySearch(node* n, int val);
 node* findMinBST(node* root);
 node* findMaxBST(node* root);
 
+int AVLHeight(node* n);
+void updateHeight(node* n);
+int AVLBalance(node* n);
+node* AVLRotateRight(node* y);
+node* AVLRotateLeft(node* y);
+bool isAVL(node* root);
+void AVLNator(tree* t);
+node* AVLInsert(node* root, int value);
+void insertAVL(tree* t, int value);
+
 int main() {
-    bool running = true;
     tree *t = NULL;
-    node *n = NULL;
-    node **temp = NULL;
-    int count = 0;
-    bool bst = false;
-    while(running) {
+    node *cursor = NULL;
+    TreeMode mode = MODE_FREE;
+    bool running = true;
+    while (running) {
         if(!t) {
-            printf("Select: Create tree (1) | Exit (2)\n");
-            int option;
-            if(scanf("%d", &option) != 1) {
-                printf("Invalid input, please enter a number.\n");
-                while(getchar() != '\n');
-                continue;
+            printf("1) Create tree | 2) Exit\n> ");
+            int opt;
+            if(!readInt("Value: ", &opt)) {
+                printf("Invalid input.\n");
+                break;
             }
-            switch(option) {
-                case 1: {
-                    printf("Value: ");
-                    int val;
-                    if(scanf("%d", &val) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    t = createTree(val);
-                    n = t->root;
-                    printf("\nTree created successfully.\n\n");
+            if(opt == 1) {
+                printf("Root value: ");
+                int val;
+                if(!readInt("Value: ", &val)) {
+                    printf("Invalid input.\n");
                     break;
                 }
-                case 2: {
-                    if(temp) {
-                        for(int i = 0; i < count; i++) {
-                            free(temp[i]);
-                        }
-                        free(temp);
-                        temp = NULL;
-                    }
-                    exit(EXIT_SUCCESS);
-                }
-                default: {
-                    printf("Invalid input.\n\n");
+                t = createTree(val);
+                cursor = t->root;
+                mode = MODE_FREE;
+                printf("Tree created (Binary Tree).\n\n");
+            }   else {
+                break;
+            }
+            continue;
+        }
+        printf("\nMode: %s\n", mode == MODE_FREE ? "FREE" : mode == MODE_BST  ? "BST"  : "AVL");
+        printf("1) Insert | 2) Navigate | 3) Info | 4) Search | 5) Convert | 6) Clear tree | 7) Exit\n> ");
+        int opt;
+        if(!readInt("Value: ", &opt)) {
+            printf("Invalid input.\n");
+            break;
+        }
+        switch(opt) {
+            case 1: {
+                int val;
+                if(!readInt("Value: ", &val)) {
+                    printf("Invalid input. Skipping insertion.\n");
                     break;
                 }
-            }
-        }   else {
-            printf("Select: Insert (1) | View (2) | Navigate (3) | Info (4) | Search (5) | Detach (6) | FindMin/Max (7) | BSTNator (8) | Clear (9) | Exit (10)\n");
-            int option;
-            if(scanf("%d", &option) != 1) {
-                printf("Invalid input, please enter a number.\n");
-                while(getchar() != '\n');
-                continue;
-            }
-            switch(option) {
-                case 1: {
-                    if(n->left && n->right) {
-                        printf("Node is full.\n\n");
+                if(mode == MODE_FREE) {
+                    if(contains(t->root, val)) {
+                        printf("Value already exists in the tree. Skipping insertion.\n");
                         break;
                     }
-                    printf("Select: Create new node (1) | Insert detached node (2)\n");
-                    int option2;
-                    if(scanf("%d", &option2) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    node* nodeToInsert = NULL;
-                    if(option2 == 1) {
-                        printf("Enter value: ");
-                        int value;
-                        if(scanf("%d", &value) != 1) {
-                            printf("Invalid input, please enter a number.\n");
-                            while(getchar() != '\n');
-                            continue;
-                        }
-                        nodeToInsert = createNode(value);
-                    }   else if(option2 == 2) {
-                        if(!temp || count == 0) {
-                            printf("No detached nodes available.\n\n");
-                            break;
-                        }
-                        printf("Select a node to insert: ");
-                        for(int i = 0; i < count; i++) {
-                            printf("(%d) %d  ", i, temp[i]->value);
-                        }
-                        int sel;
-                        if(scanf("%d", &sel) != 1) {
-                            printf("Invalid input, please enter a number.\n");
-                            while(getchar() != '\n');
-                            continue;
-                        }
-                        if(sel < 0 || sel >= count) {
-                            printf("Invalid selection.\n");
-                            break;
-                        }
-                        nodeToInsert = temp[sel];
-                        for(int j = sel; j < count - 1; j++) temp[j] = temp[j + 1];
-                        count--;
-                        if(count > 0) {
-                            node **temp2 = realloc(temp, count * sizeof(node*));
-                            if(!temp2) {printf("Memory Reallocation failed.\n"); exit(EXIT_FAILURE);}
-                            temp = temp2;
-                        } else {
-                            free(temp);
-                            temp = NULL;
-                        }
-                    }   else {
-                        break;
-                    }
-                    if(!nodeToInsert) {break;}
-                    printf("Insert Left (1) | Right (2): ");
                     int side;
+                    printf("1) Insert Left | 2) Insert Right:\n> ");
                     if(scanf("%d", &side) != 1) {
-                        printf("Invalid input, please enter a number.\n");
+                        printf("Invalid input.\n");
                         while(getchar() != '\n');
-                        continue;
+                        break;
                     }
-                    if(side == 1) {
-                        if(!n->left) {
-                            insertLeft(n, nodeToInsert);
-                            if(!isBST(t->root)) {
-                                if(bst == true) {printf("Tree is no longer a BST.\n"); bst = false;}
-                            }
-                        }   else {
-                            printf("Parent's left exists.\n\n");
-                        }
-                    }   else if(side == 2) {
-                        if(!n->right) {
-                            insertRight(n, nodeToInsert);
-                            if(!isBST(t->root)) {
-                                if(bst == true) {printf("Tree is no longer a BST.\n"); bst = false;}
-                            }
-                        }   else {
-                            printf("Parent's right exists.\n\n");
-                        }
-                    }   else {
-                        printf("Cancelled.\n");
+                    node *n = createNode(val);
+                    if(side == 1) insertLeft(cursor, n);
+                    else if(side == 2) insertRight(cursor, n);
+                    else { 
+                        printf("Cancelled.\n"); 
+                        free(n); 
                     }
+                }
+                else if(mode == MODE_BST) {
+                    node *cur = t->root;
+                    node *parent = NULL;
+                    bool duplicate = false;
+                    while(cur) {
+                        parent = cur;
+                        if(val < cur->value) cur = cur->left;
+                        else if(val > cur->value) cur = cur->right;
+                        else { duplicate = true; break; }
+                    }
+                    if(duplicate) {
+                        printf("Value already exists in BST. Skipping insertion.\n");
+                    } else {
+                        node *n = createNode(val);
+                        n->parent = parent;
+                        if(val < parent->value) parent->left = n;
+                        else parent->right = n;
+
+                        node *p = parent;
+                        while(p) { updateHeight(p); p = p->parent; }
+                    }
+                }
+                else {
+                    t->root = AVLInsert(t->root, val);
+                    t->root->parent = NULL;
+                }
+                break;
+            }
+            case 2: {
+                printf("1) Left | 2) Right | 3) Parent | 4) Root\n> ");
+                int n;
+                if(!readInt("Value: ", &n)) {
+                    printf("Invalid input.\n");
                     break;
                 }
-                case 2: {
-                    traverse(n);
-                    printf("\n\n");
+                if(n == 1 && cursor->left) {cursor = cursor->left;}
+                else if(n == 2 && cursor->right) {cursor = cursor->right;}
+                else if(n == 3 && cursor->parent) {cursor = cursor->parent;}
+                else if(n == 4) {cursor = t->root;}
+                else {printf("Invalid move.\n");}
+                break;
+            }
+            case 3:
+                printf("Value: %d\n", cursor->value);
+                printf("Height: %d\n", AVLHeight(cursor));
+                printf("Size: %d\n", size(t->root));
+                printf("isBST: %s\n", isBST(t->root) ? "yes" : "no");
+                printf("isAVL: %s\n", isAVL(t->root) ? "yes" : "no");
+                break;
+            case 4: {
+                printf("Search value: ");
+                int v;
+                if(!readInt("Value: ", &v)) {
+                    printf("Invalid input.\n");
                     break;
                 }
-                case 3: {
-                    printf("Select: Left (1) | Right (2) | Parent (3) | Root (4) | Menu (5)\n");
-                    int anum;
-                    if(scanf("%d", &anum) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    switch(anum) {
-                        case 1: {
-                            if(!n->left) {printf("Error: Node has no left child.\n"); break;}
-                            n = n->left;
-                            break;
-                        }
-                        case 2: {
-                            if(!n->right) {printf("Error: Node has no right child.\n"); break;}
-                            n = n->right;
-                            break;
-                        }
-                        case 3: {
-                            if(!n->parent) {printf("Error: Node has no parent.\n"); break;}     //assumes tree exists
-                            n = n->parent;
-                            break;
-                        }
-                        case 4: {
-                            n = t->root;
-                            break;
-                        }
-                    }
+                bool found = (mode != MODE_FREE) ? BinarySearch(t->root, v) : contains(t->root, v);
+                printf(found ? "Found\n" : "Not found\n");
+                break;
+            }
+            case 5: {
+                printf("1) To BST\n2) To AVL\n> ");
+                int c;
+                if(!readInt("Value: ", &c)) {
+                    printf("Invalid input.\n");
                     break;
                 }
-                case 4: {
-                    printf("View: isLeaf (1) | Height (2) | Size (3) | countLeaves (4) | Depth (5) | isBST (6) | Menu (7)\n");
-                    int anum;
-                    if(scanf("%d", &anum) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    switch(anum) {
-                        case 1: {
-                            bool yes = isLeaf(n);
-                            if(yes) {
-                                printf("Node is a leaf.\n\n");
-                            }   else {
-                                printf("Node is not a leaf.\n\n");
-                            }
-                            break;
-                        }
-                        case 2: {
-                            printf("Height is %d nodes.\n\n", height(n));
-                            break;
-                        }
-                        case 3: {
-                            printf("Tree contains %d nodes.\n\n", size(n));
-                            break;
-                        }
-                        case 4: {
-                            printf("There are %d leaf nodes.\n\n", countLeaves(n));
-                            break;
-                        }
-                        case 5: {
-                            printf("Tree is %d nodes deep.\n\n", depth(n));
-                            break;
-                        }
-                        case 6: {
-                            bool tmp = isBST(t->root);
-                            if(tmp) {printf("Tree is a BST.\n");}
-                            else {printf("Tree is not a BST>\n");}
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case 5: {
-                    printf("Find: ");
-                    int anum;
-                    if(scanf("%d", &anum) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    if(bst == true) {
-                        if(BinarySearch(n, anum)) {
-                            printf("Value was found.\n\n");
-                        }   else {
-                            printf("Value wasn't found.\n\n");
-                        }
-                    }   else {
-                        if(contains(n, anum)) {
-                            printf("Value was found.\n\n");
-                        }   else {
-                            printf("Value wasn't found.\n\n");
-                        }
-                    }
-                    break;
-                }
-                case 6: {
-                    printf("Detaching child of current node...\nDetach: Left (1) | Right (2)\n");
-                    int anum;
-                    if(scanf("%d", &anum) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    if(anum == 1 && n->left) {
-                        count++;
-                        node **pTemp = realloc(temp, count * sizeof(node*));
-                        if(!pTemp) { printf("Error: Memory Reallocation Failed.\n"); exit(EXIT_FAILURE); }
-                        temp = pTemp;
-                        temp[count - 1] = n->left;
-                        detach(n, n->left);
-                        printf("Detached node with value: %d\n", temp[count - 1]->value);
-                    }   else if(anum == 2 && n->right) {
-                        count++;
-                        node **pTemp = realloc(temp, count * sizeof(node*));
-                        if(!pTemp) { printf("Error: Memory Reallocation Failed.\n"); exit(EXIT_FAILURE); }
-                        temp = pTemp;
-                        temp[count - 1] = n->right;
-                        detach(n, n->right);
-                        printf("Detached node with value: %d\n", temp[count - 1]->value);
-                    }   else {
-                        printf("No child to detach.\n");
-                    }
-                    break;
-                }
-                case 7: {
-                    printf("Select: FindMin (1), FindMax (2), Menu (3)\n");
-                    int anum;
-                    if(scanf("%d", &anum) != 1) {
-                        printf("Invalid input, please enter a number.\n");
-                        while(getchar() != '\n');
-                        continue;
-                    }
-                    switch(anum) {
-                        case 1: {
-                            node* minNode = NULL;
-                            if(bst) {minNode = findMinBST(n);}
-                            else {minNode = findMin(n);}
-                            if(minNode) {printf("%d\n", minNode->value);}
-                            else {printf("Empty Tree.\n");}
-                            break;
-                        }
-                        case 2: {
-                            node* maxNode = NULL;
-                            if(bst) {maxNode = findMaxBST(n);}
-                            else {maxNode = findMax(n);}
-                            if(maxNode) {printf("%d\n", maxNode->value);}
-                            else {printf("Empty Tree.\n");}
-                            break;
-                        }
-                    }
-                    printf("\n\n");
-                    break;
-                }
-                case 8: {
+                if(c == 1) {
                     BSTNator(t);
-                    bst = true;
-                    break;
+                    mode = MODE_BST;
+                    cursor = t->root;
+                }   else if(c == 2) {
+                    AVLNator(t);
+                    mode = MODE_AVL;
+                    cursor = t->root;
                 }
-                case 9: {
-                    cleanup(t, temp, count);
-                    t = NULL;
-                    temp = NULL;
-                    count = 0;
-                    break;
-                }
-                case 10: {
-                    printf("Exiting...\n");
-                    cleanup(t, temp, count);
-                    t = NULL;
-                    temp = NULL;
-                    count = 0;
-                    running = false;
-                    break;
-                }
-                default: {
-                    printf("Invalid input.\n\n");
-                    break;
-                }
+                break;
+            }
+            case 6: {
+                freeTree(t);
+                t = NULL;
+                cursor = NULL;
+                mode = MODE_FREE;
+                break;
+            }
+            case 7: {
+                running = false;
+                break;
+            }
+            default: {
+                printf("Invalid option.\n");
+                break;
             }
         }
     }
-    printf("Exit successful.\n");
+    freeTree(t);
     return 0;
+}
+
+bool readInt(const char *prompt, int *out) {
+    int c;
+    if(prompt) {printf("%s", prompt);}
+    if(scanf("%d", out) != 1) {
+        while((c = getchar()) != '\n' && c != EOF);
+        return false;
+    }
+    return true;
 }
 
 node* createNode(int val) {
     node* temp = malloc(sizeof(node));
     if(!temp) {printf("Error Allocating.\n"); exit(EXIT_FAILURE);}
     temp->value = val;
+    temp->height = 1;
     temp->left = NULL;
     temp->right = NULL;
     temp->parent = NULL;
@@ -399,18 +255,31 @@ tree* createTree(int n) {
     return t;
 }
 
+void updateHeight(node* n) {
+    if(!n) {return;}
+    int leftH = n->left ? n->left->height : 0;
+    int rightH = n->right ? n->right->height : 0;
+    n->height = 1 + (leftH > rightH ? leftH : rightH);
+}
+
 void insertLeft(node* parent, node* child) {
+    if(!parent || !child) return;
     if(parent->left) {printf("Error: Parent has a left node.\n"); return;}
     if(child->parent) {printf("Error: Child already has a parent.\n"); return;}
     parent->left = child;
     child->parent = parent;
+    node* cur = parent;
+    while(cur) { updateHeight(cur); cur = cur->parent; }
 }
 
 void insertRight(node* parent, node* child) {
+    if(!parent || !child) {return;}
     if(parent->right) {printf("Error: Parent has a right node.\n"); return;}
     if(child->parent) {printf("Error: Child already has a parent.\n"); return;}
     parent->right = child;
     child->parent = parent;
+    node* cur = parent;
+    while(cur) {updateHeight(cur); cur = cur->parent;}
 }
 
 void traverse(node* root) {
@@ -420,70 +289,33 @@ void traverse(node* root) {
     traverse(root->right);
 }
 
-void freeNodes(node* root) {
-    if(!root) {return;}
-    freeNodes(root->left);
-    freeNodes(root->right);
-    free(root);
-}
-
-void freeTree(tree* t) {
-    if(!t) {return;}
-    freeNodes(t->root);
-    free(t);
-}
-
-void detach(node* parent, node* child) {
-    if(parent->left != child && parent->right != child) {printf("Error: Nodes are not connected.\n"); return;}
-    if(child->parent != parent) {printf("Error: Nodes are not connected.\n"); return;}
-    if(parent->left == child) {
-        parent->left = NULL;
-    }   else {
-        parent->right = NULL;
-    }
-    child->parent = NULL;
-}
-
 bool isLeaf(node* n) {
-    if(!n) return false;
+    if(!n) {return false;}
     return !n->left && !n->right;
 }
 
-int height(node* root) {
-    if(!root) return 0;
-    int leftHeight = height(root->left);
-    int rightHeight = height(root->right);
-    return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
-}
-
 int size(node* root) {
-    if(!root) return 0;
+    if(!root) {return 0;}
     return 1 + size(root->left) + size(root->right);
 }
 
 int countLeaves(node* root) {
-    if(!root) return 0;
-    if(!root->left && !root->right) return 1;
+    if(!root) {return 0;}
+    if(isLeaf(root)) return 1;
     return countLeaves(root->left) + countLeaves(root->right);
 }
 
 int depth(node* n) {
     int d = 0;
-    while(n->parent) {
-        d++;
-        n = n->parent;
-    }
+    while(n && n->parent) { d++; n = n->parent; }
     return d;
 }
 
 node* findNode(node* root, int value) {
-    if(!root)
-        return NULL;
-    if(root->value == value)
-        return root;
+    if(!root) {return NULL;}
+    if(root->value == value) {return root;}
     node* found = findNode(root->left, value);
-    if(found)
-        return found;
+    if(found) {return found;}
     return findNode(root->right, value);
 }
 
@@ -492,112 +324,220 @@ bool contains(node* root, int value) {
 }
 
 node* findMin(node* root) {
-    if(!root)
-        return NULL;
+    if(!root) return NULL;
     node* min = root;
-    node* leftMin = findMin(root->left);
-    node* rightMin = findMin(root->right);
-    if(leftMin && leftMin->value < min->value)
-        min = leftMin;
-    if(rightMin && rightMin->value < min->value)
-        min = rightMin;
+    node* lmin = findMin(root->left);
+    node* rmin = findMin(root->right);
+    if(lmin && lmin->value < min->value) {min = lmin;}
+    if(rmin && rmin->value < min->value) {min = rmin;}
     return min;
 }
 
 node* findMax(node* root) {
-    if(!root)
-        return NULL;
+    if(!root) {return NULL;}
     node* max = root;
-    node* leftMax = findMax(root->left);
-    node* rightMax = findMax(root->right);
-    if(leftMax && leftMax->value > max->value)
-        max = leftMax;
-    if(rightMax && rightMax->value > max->value)
-        max = rightMax;
+    node* lmax = findMax(root->left);
+    node* rmax = findMax(root->right);
+    if(lmax && lmax->value > max->value) {max = lmax;}
+    if(rmax && rmax->value > max->value) {max = rmax;}
     return max;
+}
+
+void detach(node* parent, node* child) {
+    if(!parent || !child) return;
+    if(parent->left == child) parent->left = NULL;
+    else if(parent->right == child) parent->right = NULL;
+    else {printf("Error: Nodes are not connected.\n"); return;}
+    child->parent = NULL;
+    node* cur = parent;
+    while(cur) { updateHeight(cur); cur = cur->parent; }
+}
+
+void freeNodes(node* root) {
+    if(!root) return;
+    freeNodes(root->left);
+    freeNodes(root->right);
+    free(root);
+}
+
+void freeTree(tree* t) {
+    if(!t) return;
+    freeNodes(t->root);
+    free(t);
 }
 
 void cleanup(tree* t, node** temp, int count) {
     freeTree(t);
     if(temp) {
-        for(int i = 0; i < count; i++) free(temp[i]);
+        for(int i = 0; i < count; i++) {
+            if(temp[i]) {free(temp[i]);}
+        }
         free(temp);
     }
 }
 
-void fillInorder(node *n, int *arr, int *index) {
-    if(n == NULL)
-        return;
-    fillInorder(n->left, arr, index);
-    arr[*index] = n->value;
-    (*index)++;
-    fillInorder(n->right, arr, index);
-}
-
-int compare(const void *a, const void *b) {
-    int x = *(const int *)a;
-    int y = *(const int *)b;   
-    if (x < y) return -1;
-    if (x > y) return 1;
-    return 0;
-}
-
-void assignInorder(node *n, int *arr, int *index) {
-    if (n == NULL) {return;}
-    assignInorder(n->left, arr, index);
-    n->value = arr[*index];
-    (*index)++;
-    assignInorder(n->right, arr, index);
-}
-
-void BSTNator(tree* t) {
-    if(!t || !t->root) {printf("Tree is empty.\n"); return;}
-    int n = size(t->root);
-    int *arr = malloc(n * sizeof(int));
-    if (!arr) {printf("Error Allocating.\n"); exit(EXIT_FAILURE);}
-    int index = 0;
-    fillInorder(t->root, arr, &index);
-    qsort(arr, n, sizeof(int), compare);
-    index = 0;
-    assignInorder(t->root, arr, &index);
-    free(arr);
-}
-
-bool isBSTUtil(node* n, int min, int max) {
-    if(n == NULL) {return true;}  // empty tree is BST
-
-    if(n->value < min || n->value > max) {return false;}
-
-    return isBSTUtil(n->left, min, n->value - 1) &&
-           isBSTUtil(n->right, n->value + 1, max);
+bool isBSTUtil(node* n, long long min, long long max) {
+    if(!n) return true;
+    if(n->value <= min || n->value >= max) return false;
+    return isBSTUtil(n->left, min, n->value) &&
+           isBSTUtil(n->right, n->value, max);
 }
 
 bool isBST(node* root) {
-    return isBSTUtil(root, INT_MIN, INT_MAX);
+    return isBSTUtil(root, LLONG_MIN, LLONG_MAX);
+}
+
+void fillInorder(node *n, int *arr, int *index) {
+    if(!n) return;
+    fillInorder(n->left, arr, index);
+    arr[(*index)++] = n->value;
+    fillInorder(n->right, arr, index);
+}
+
+node* buildBalancedBST(int *arr, int start, int end, node* parent) {
+    if(start > end) return NULL;
+    int mid = (start + end) / 2;
+    node* n = createNode(arr[mid]);
+    n->parent = parent;
+    n->left = buildBalancedBST(arr, start, mid-1, n);
+    n->right = buildBalancedBST(arr, mid+1, end, n);
+    updateHeight(n);
+    return n;
+}
+
+void BSTNator(tree* t) {
+    if(!t || !t->root) return;
+    int n = size(t->root);
+    int* arr = malloc(n * sizeof(int));
+    int idx = 0;
+    fillInorder(t->root, arr, &idx);
+    freeNodes(t->root);
+    t->root = buildBalancedBST(arr, 0, n-1, NULL);
+    free(arr);
 }
 
 bool BinarySearch(node* n, int val) {
-    node* cur = n;
-    while(cur) {
-        if(cur->value == val) {return true;}
-        if(val < cur->value) {cur = cur->left;}
-        else {cur = cur->right;}
+    while(n) {
+        if(n->value == val) return true;
+        if(val < n->value) n = n->left;
+        else n = n->right;
     }
     return false;
 }
 
 node* findMinBST(node* root) {
-    if(!root) {return NULL;}
-    node* cur = root;
-    while(cur->left)
-        cur = cur->left;
-    return cur;
+    if(!root) return NULL;
+    while(root->left) root = root->left;
+    return root;
 }
 
 node* findMaxBST(node* root) {
-    if(!root) {return NULL;}
-    node* cur = root;
-    while(cur->right)
-        cur = cur->right;
-    return cur;
+    if(!root) return NULL;
+    while(root->right) root = root->right;
+    return root;
+}
+
+node* AVLRotateRight(node* y) {
+    node* x = y->left;
+    node* T2 = x->right;
+    x->right = y;
+    y->left = T2;
+    x->parent = y->parent;
+    y->parent = x;
+    if(T2) T2->parent = y;
+    if(x->parent) {
+        if(x->parent->left == y) x->parent->left = x;
+        else x->parent->right = x;
+    }
+    updateHeight(y);
+    updateHeight(x);
+    return x;
+}
+
+node* AVLRotateLeft(node* y) {
+    node* x = y->right;
+    node* T2 = x->left;
+    x->left = y;
+    y->right = T2;
+    x->parent = y->parent;
+    y->parent = x;
+    if(T2) T2->parent = y;
+    if(x->parent) {
+        if(x->parent->left == y) x->parent->left = x;
+        else x->parent->right = x;
+    }
+    updateHeight(y);
+    updateHeight(x);
+    return x;
+}
+
+int checkAVL(node *n, bool *ok) {
+    if(!n) {return 0;}
+    int lh = checkAVL(n->left, ok);
+    int rh = checkAVL(n->right, ok);
+    if(abs(lh - rh) > 1) {*ok = false;}
+    if(n->height != 1 + (lh > rh ? lh : rh)) {*ok = false;}
+    return 1 + (lh > rh ? lh : rh);
+}
+
+bool isAVL(node* root) {
+    if(!root) {return true;}
+    if(!isBST(root)) {return false;}
+    bool ok = true;
+    checkAVL(root, &ok);
+    return ok;
+}
+
+int AVLHeight(node* n) {
+    return n ? n->height : 0;
+}
+
+int AVLBalance(node* n) {
+    if(!n) {return 0;}
+    return AVLHeight(n->left) - AVLHeight(n->right);
+}
+
+void AVLNator(tree* t) {
+    if(!t || !t->root) {return;}
+    if(!isBST(t->root)) {BSTNator(t);}
+    int n = size(t->root);
+    int* arr = malloc(n * sizeof(int));
+    if(!arr) {printf("Memory allocation failed.\n"); exit(EXIT_FAILURE);}
+    int idx = 0;
+    fillInorder(t->root, arr, &idx);
+    freeNodes(t->root);
+    t->root = buildBalancedBST(arr, 0, n-1, NULL);
+    free(arr);
+}
+
+node* AVLInsert(node* root, int value) {
+    if (!root) {return createNode(value);}
+    if(value < root->value) {
+        root->left = AVLInsert(root->left, value);
+        root->left->parent = root;
+    }   else if (value > root->value) {
+        root->right = AVLInsert(root->right, value);
+        root->right->parent = root;
+    }   else {return root;}
+    updateHeight(root);
+    int balance = AVLBalance(root);
+    if(balance > 1 && value < root->left->value) {return AVLRotateRight(root);}
+    if(balance < -1 && value > root->right->value) {return AVLRotateLeft(root);}
+    if(balance > 1 && value > root->left->value) {
+        root->left = AVLRotateLeft(root->left);
+        root->left->parent = root;
+        return AVLRotateRight(root);
+    }
+    if (balance < -1 && value < root->right->value) {
+        root->right = AVLRotateRight(root->right);
+        root->right->parent = root;
+        return AVLRotateLeft(root);
+    }
+    return root;
+}
+
+void insertAVL(tree* t, int value) {
+    if(!t) {return;}
+    t->root = AVLInsert(t->root, value);
+    t->root->parent = NULL;
 }

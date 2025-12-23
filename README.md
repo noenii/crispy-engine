@@ -82,4 +82,6 @@ progress:
 
 12/22/25: learnt more about trees, traversal algos, management and created a BST
 
+12/23/25: finished learning on trees with creating an AVLs =D
+
 dm me on discord - yun.seoo
