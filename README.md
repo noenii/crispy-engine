@@ -84,4 +84,6 @@ progress:
 
 12/23/25: finished learning on trees with creating an AVLs =D
 
+12/25/25: learnt about graphs and goto, and tried learning C++... spoiler: im not gonna try it again lmao
+
 dm me on discord - yun.seoo
