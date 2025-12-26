@@ -86,6 +86,8 @@ progress:
 
 12/24/25: learnt about graphs and goto, and tried learning C++... spoiler: im not gonna try it again lmao
 
-12/25/25: ok i couldnt help myself, started learning C++. learnt its syntax, I/O, date types, operators, strings, user input, arrays, namespace, functions, booleans, logic, conditionals, loops, flow, a bit of vectors, structs, enums, references, pointers and memory management
+12/25/25: ok i couldnt help myself, started learning C++. learnt its syntax, I/O, date types, operators, strings, user input, arrays, namespace, functions, booleans, logic, conditionals, loops, flow, a bit of vectors, structs, enums, references, pointers, memory management...
+
+12/26/25: functions, params, overloading, scope, recursion, lambda, some OOP, classes/objects, methods, constructors, access specifiers, encapsulation, friend function, inheritance, polymorphism, templates, file management, ctime, errors, debugging, exceptions and validation
 
 dm me on discord - yun.seoo
