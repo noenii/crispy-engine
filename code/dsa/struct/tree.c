@@ -43,7 +43,6 @@ node* findNode(node* root, int value);
 bool contains(node* root, int value);
 node* findMin(node* root);
 node* findMax(node* root);
-void cleanup(tree* t, node** temp, int count);
 
 void fillInorder(node *n, int *arr, int *index);
 node* buildBalancedBST(int *arr, int start, int end, node* parent);
@@ -364,16 +363,6 @@ void freeTree(tree* t) {
     if(!t) return;
     freeNodes(t->root);
     free(t);
-}
-
-void cleanup(tree* t, node** temp, int count) {
-    freeTree(t);
-    if(temp) {
-        for(int i = 0; i < count; i++) {
-            if(temp[i]) {free(temp[i]);}
-        }
-        free(temp);
-    }
 }
 
 bool isBSTUtil(node* n, long long min, long long max) {
