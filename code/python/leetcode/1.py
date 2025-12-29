@@ -1,8 +1,8 @@
 class Solution(object):
     def twoSum(self, nums, target):
-        for index, outer in enumerate(nums):
-            for index1, inner in enumerate(nums):
-                if index1 == index:
+        for ind, outer in enumerate(nums):
+            for ind2, inner in enumerate(nums):
+                if ind == ind2:
                     continue
                 if outer + inner == target:
-                    return index, index1
+                    return ind, ind2

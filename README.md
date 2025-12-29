@@ -90,4 +90,6 @@ progress:
 
 12/26/25: functions, params, overloading, scope, recursion, lambda, some OOP, classes/objects, methods, constructors, access specifiers, encapsulation, friend function, inheritance, polymorphism, templates, file management, ctime, errors, debugging, exceptions and validation
 
+12/29/25: did some leetcode and time complexity analysis of my bubble sort and counting sort implementations
+
 dm me on discord - yun.seoo
