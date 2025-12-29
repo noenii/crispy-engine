@@ -32,9 +32,11 @@ void fillRandom(int arr[], int size) {
     }
 }
 
-void printArray(int arr[], int size) {
-    for(int i = 0; i < size; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-}
+// Time Complexity Analysis:
+//   1. Bucket initialization: O(k)
+//   2. fillRandom: O(n)
+//   3. Counting occurrences: O(n)
+//   4. Printing sorted output: O(n)
+//     Overall time complexity: O(n + k)
+//     Space complexity: O(k)
+//   NOTE: Counting Sort is limited as it only works on integers and requires all items be in a bounded range.

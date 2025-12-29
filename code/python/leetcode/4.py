@@ -6,11 +6,6 @@ class Solution(object):
         :rtype: float
         """
         from heapq import merge
-        sortedli = list(merge(nums1, nums2))
-        mid = len(sortedli)//2
-        if mid % 2 == 0:
-            x, y = sortedli[mid - 1], sortedli[mid]
-            z = float(x + y)
-            return z/2
-        else:
-            return sortedli[mid]
+        import numpy
+        sortedli = numpy.array(list(heapq.merge(nums1, nums2)))
+        return numpy.median(sortedli)
