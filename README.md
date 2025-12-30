@@ -92,4 +92,6 @@ progress:
 
 12/29/25: did some leetcode and time complexity analysis of my bubble sort and counting sort implementations
 
+12/30/25: did leetcode in c and cpp...
+
 dm me on discord - yun.seoo
