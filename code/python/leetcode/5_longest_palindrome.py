@@ -1,4 +1,4 @@
-class Solution(object):
+class Solution(object):     # longest palindromic substring
     def longestPalindrome(self, s):
         if not s:
             return ""
