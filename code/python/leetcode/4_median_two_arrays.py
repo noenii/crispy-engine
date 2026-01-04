@@ -1,4 +1,4 @@
-class Solution(object):
+class Solution(object):     # median of two sorted arrays
     def findMedianSortedArrays(self, nums1, nums2):
         """
         :type nums1: List[int]
@@ -6,6 +6,6 @@ class Solution(object):
         :rtype: float
         """
         from heapq import merge
-        import numpy
-        sortedli = numpy.array(list(heapq.merge(nums1, nums2)))
+        import numpy # type: ignore
+        sortedli = numpy.array(list(heapq.merge(nums1, nums2))) # type: ignore
         return numpy.median(sortedli)
