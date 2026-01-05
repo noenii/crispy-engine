@@ -94,4 +94,6 @@ progress:
 
 12/30/25: did leetcode in c and cpp...
 
+1/4/25: more leet code
+
 dm me on discord - yun.seoo

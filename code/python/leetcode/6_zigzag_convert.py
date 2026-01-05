@@ -1,4 +1,4 @@
-class Solution(object):
+class Solution(object):     # convert string to a zigzag
     def convert(self, s, numRows):
         """
         :type s: str
