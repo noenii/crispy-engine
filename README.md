@@ -96,4 +96,6 @@ progress:
 
 1/4/25: more leet code
 
+1/29/25: reorganizing
+
 dm me on discord - yun.seoo
