@@ -98,4 +98,6 @@ progress:
 
 1/29/25: reorganizing
 
+5/7/26: been a bit
+
 dm me on discord - yun.seoo
