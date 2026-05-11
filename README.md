@@ -100,4 +100,4 @@ progress:
 
 5/7/26: been a bit
 
-dm me on discord - yun.seoo
+dm me on discord - akii.iwi
