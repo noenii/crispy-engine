@@ -1,8 +1,6 @@
 # crispy-engine
 
-
-i like computers =D
-
+i like computers =D --> No you dont.
 
 progress:
 
